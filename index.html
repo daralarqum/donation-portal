@@ -276,7 +276,11 @@ html[dir="ltr"] .ticker-track {
       gap: 9px;
       margin-bottom: 18px;
     }
-
+.purposes .purpose:last-child {
+  grid-column: 1 / -1;
+  width: calc(50% - 4.5px);
+  justify-self: center;
+}
     .purpose {
       text-align: start;
       border: 1px solid var(--line);
