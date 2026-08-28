@@ -51,39 +51,49 @@
     }
 
     button {
-      cursor: pointer;
-    }
+  cursor: pointer;
+}
 
-    /* TOP MOVING STRIP */
-    .ticker {
-      width: 100%;
-      overflow: hidden;
-      background: #f1f0ed;
-      border-bottom: 1px solid var(--silver);
-      color: var(--taupe);
-      font-size: 12px;
-      white-space: nowrap;
-      padding: 7px 0;
-    }
+/* TOP MOVING STRIP */
 
-    .ticker-track {
-      display: inline-block;
-      min-width: 100%;
-      animation: tickerMove 22s linear infinite;
-    }
 
-    @keyframes tickerMove {
-      from {
-        transform: translateX(-100%);
-      }
-      to {
-        transform: translateX(100%);
-      }
-    }
+  
+.ticker {
+  width: 100%;
+  overflow: hidden;
+  background: #f1f0ed;
+  border-bottom: 1px solid var(--silver);
+  color: var(--taupe);
+  font-size: 12px;
+  white-space: nowrap;
+  padding: 7px 0;
+}
 
-    html[dir="ltr"] .ticker-track {
-      animation-direction: reverse;
-    }
+.ticker-track {
+  display: inline-block;
+  min-width: 100%;
+  animation: tickerMove 22s linear infinite;
+  text-align: center;
+}
+
+@keyframes tickerMove {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Arabic: right to left */
+html[dir="rtl"] .ticker-track {
+  animation-direction: normal;
+}
+
+/* English: left to right */
+html[dir="ltr"] .ticker-track {
+  animation-direction: reverse;
+}
 
     .page {
       width: min(760px, 100%);
@@ -121,12 +131,13 @@
       margin: 8px 0 4px;
     }
 
-    .logo {
-      display: block;
-      width: min(260px, 72vw);
-      height: auto;
-      margin: 0 auto 4px;
-    }
+   .logo {
+  display: block;
+  width: min(195px, 55vw);
+  height: auto;
+  margin: 0 auto 6px;
+  mix-blend-mode: multiply;
+}
 
     .hero h1 {
       margin: 4px auto 9px;
@@ -740,17 +751,17 @@
         <div class="step">1</div>
         <div>
           <h2
-            data-ar="اختاري مجال التبرع"
+            data-ar="اختر مجال التبرع"
             data-en="Choose a donation purpose"
           >
-            اختاري مجال التبرع
+            اختر مجال التبرع
           </h2>
 
           <p
-            data-ar="اختاري المجال الأقرب لنيّتك، أو اتركيها صدقة عامة."
+            data-ar="اختر المجال الأقرب لنيّتك، أو اتركها صدقة عامة."
             data-en="Choose the purpose closest to your intention, or leave it as General Charity."
           >
-            اختاري المجال الأقرب لنيّتك، أو اتركيها صدقة عامة.
+            اختر المجال الأقرب لنيّتك، أو اتركها صدقة عامة.
           </p>
         </div>
       </div>
@@ -803,11 +814,11 @@
           data-value="expenses"
           data-ar="دعم مصاريف المركز"
           data-en="Support Centre Expenses"
-          data-desc-ar="للمصاريف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز."
+          data-desc-ar="للمصارف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز."
           data-desc-en="For operating expenses, teaching and administrative staff salaries, and Centre needs."
         >
           دعم مصاريف المركز
-          <small>للمصاريف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز.</small>
+          <small>للمصارف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز.</small>
         </button>
 
         <button
@@ -951,31 +962,31 @@
 
       <div class="transfer-steps">
         <p
-          data-ar="1. افتحي تطبيق البنك أو BenefitPay."
+          data-ar="1. افتح تطبيق البنك أو BenefitPay."
           data-en="1. Open your bank app or BenefitPay."
         >
-          1. افتحي تطبيق البنك أو BenefitPay.
+          1. افتح تطبيق البنك أو BenefitPay.
         </p>
 
         <p
-          data-ar="2. حوّلي المبلغ إلى رقم الآيبان الموضح أعلاه."
+          data-ar="2. حوّل المبلغ إلى رقم الآيبان الموضح أعلاه."
           data-en="2. Transfer the amount to the IBAN shown above."
         >
-          2. حوّلي المبلغ إلى رقم الآيبان الموضح أعلاه.
+          2. حوّل المبلغ إلى رقم الآيبان الموضح أعلاه.
         </p>
 
         <p
-          data-ar="3. احتفظي بصورة إيصال التحويل."
+          data-ar="3. احتفظ بصورة إيصال التحويل."
           data-en="3. Keep an image of the transfer receipt."
         >
-          3. احتفظي بصورة إيصال التحويل.
+          3. احتفظ بصورة إيصال التحويل.
         </p>
 
         <p
-          data-ar="4. ارفعي الإيصال أدناه وأرسليه للمراجعة."
+          data-ar="4. ارفعي الإيصال أدناه وأرسله للمراجعة."
           data-en="4. Upload the receipt below and submit it for review."
         >
-          4. ارفعي الإيصال أدناه وأرسليه للمراجعة.
+          4. ارفع الإيصال أدناه وأرسله للمراجعة.
         </p>
       </div>
 
@@ -1136,10 +1147,10 @@
     <section class="share-area">
 
       <h3
-        data-ar="دلّي على الخير وشاركي الأجر"
+        data-ar="دل على الخير وشارك الأجر"
         data-en="Share the good and help the reward reach further"
       >
-        دلّي على الخير وشاركي الأجر
+        دل على الخير وشارك الأجر
       </h3>
 
       <button
