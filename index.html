@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#8b6a32" />
+  <title>التبرع | مركز دار الأرقم</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button id="langBtn" class="lang-btn" type="button">English</button>
+</header>
+
+  <main class="shell">
+    <section class="brand">
+      <div class="logo-wrap">
+        <img src="assets/logo.jpeg" alt="Dar Al Arqum logo" onerror="this.style.display='none';document.getElementById('logoFallback').style.display='grid';">
+        <div id="logoFallback" class="logo-fallback">
+          <span>ضع الشعار الأصلي هنا</span>
+          <small>assets/logo.jpeg</small>
+        </div>
+      </div>
+      <h1 data-ar="مركز دار الأرقم لتعليم القرآن الكريم للنساء" data-en="Dar Al Arqum Quranic Studies Centre">
+        مركز دار الأرقم لتعليم القرآن الكريم للنساء
+      </h1>
+      <p class="subtitle" data-ar="ساهمي معنا في تعليم كتاب الله" data-en="Contribute to teaching the Book of Allah">
+        ساهمي معنا في تعليم كتاب الله
+      </p>
+    </section>
+
+    <section id="step1" class="card active-step">
+      <div class="step-badge">1</div>
+      <h2 data-ar="اختاري مجال التبرع" data-en="Choose a donation purpose">اختاري مجال التبرع</h2>
+
+      <div class="purpose-grid">
+        <button class="purpose active" data-value="general" data-ar="صدقة عامة" data-en="General Donation">صدقة عامة</button>
+        <button class="purpose" data-value="student" data-ar="كفالة طالبة" data-en="Sponsor a Student">كفالة طالبة</button>
+        <button class="purpose" data-value="classes" data-ar="دعم حلقات القرآن" data-en="Support Quran Classes">دعم حلقات القرآن</button>
+        <button class="purpose" data-value="facilities" data-ar="المرافق والصيانة" data-en="Facilities & Maintenance">المرافق والصيانة</button>
+        <button class="purpose" data-value="projects" data-ar="مشاريع المركز" data-en="Centre Projects">مشاريع المركز</button>
+        <button class="purpose" data-value="other" data-ar="أخرى" data-en="Other">أخرى</button>
+      </div>
+
+      <label for="amount" data-ar="مبلغ التبرع (د.ب)" data-en="Donation amount (BHD)">مبلغ التبرع (د.ب)</label>
+      <div class="amount-row">
+        <input id="amount" type="number" inputmode="decimal" min="0.100" step="0.100" placeholder="10.000" />
+        <span>BHD</span>
+      </div>
+
+      <div class="quick-amounts">
+        <button type="button" data-amount="5">5</button>
+        <button type="button" data-amount="10">10</button>
+        <button type="button" data-amount="20">20</button>
+        <button type="button" data-amount="50">50</button>
+      </div>
+
+      <button id="continueBtn" class="primary" type="button" data-ar="متابعة" data-en="Continue">متابعة</button>
+    </section>
+
+    <section id="step2" class="card">
+      <div class="step-badge">2</div>
+      <h2 data-ar="حوّلي المبلغ" data-en="Make the transfer">حوّلي المبلغ</h2>
+      <p data-ar="استخدمي بيانات حساب المركز أدناه، ثم ارفعي إيصال التحويل للمراجعة."
+         data-en="Use the Centre account details below, then upload the transfer receipt for review.">
+        استخدمي بيانات حساب المركز أدناه، ثم ارفعي إيصال التحويل للمراجعة.
+      </p>
+
+      <div class="payment-box">
+        <div>
+          <span class="muted" data-ar="رقم الآيبان" data-en="IBAN">رقم الآيبان</span>
+          <strong id="iban" dir="ltr">BH96BIBB00100000158658</strong>
+        </div>
+        <button id="copyIban" type="button" class="outline" data-ar="نسخ" data-en="Copy">نسخ</button>
+      </div>
+
+      <div class="summary">
+        <div><span data-ar="المبلغ" data-en="Amount">المبلغ</span><strong id="summaryAmount">—</strong></div>
+        <div><span data-ar="مجال التبرع" data-en="Purpose">مجال التبرع</span><strong id="summaryPurpose">—</strong></div>
+      </div>
+
+      <div class="steps-list">
+        <div><b>1</b><span data-ar="افتحي تطبيق البنك أو BenefitPay." data-en="Open your bank app or BenefitPay.">افتحي تطبيق البنك أو BenefitPay.</span></div>
+        <div><b>2</b><span data-ar="حوّلي المبلغ إلى آيبان المركز." data-en="Transfer the amount to the Centre IBAN.">حوّلي المبلغ إلى آيبان المركز.</span></div>
+        <div><b>3</b><span data-ar="احتفظي بصورة إيصال التحويل." data-en="Save a screenshot of the transfer receipt.">احتفظي بصورة إيصال التحويل.</span></div>
+        <div><b>4</b><span data-ar="ارفعي الإيصال بالأسفل وأرسليه للمراجعة." data-en="Upload the receipt below and submit it for review.">ارفعي الإيصال بالأسفل وأرسليه للمراجعة.</span></div>
+      </div>
+
+      <div class="fields">
+        <label data-ar="الاسم (اختياري)" data-en="Name (optional)">الاسم (اختياري)</label>
+        <input id="donorName" type="text" />
+
+        <label data-ar="رقم التواصل (اختياري)" data-en="Contact number (optional)">رقم التواصل (اختياري)</label>
+        <input id="contact" type="tel" dir="ltr" />
+
+        <label data-ar="ملاحظات (اختياري)" data-en="Notes (optional)">ملاحظات (اختياري)</label>
+        <textarea id="notes" rows="3"></textarea>
+
+        <label class="file-label" for="receipt" data-ar="صورة إيصال التحويل" data-en="Transfer receipt image">صورة إيصال التحويل</label>
+        <input id="receipt" type="file" accept="image/*,.pdf" />
+        <small class="privacy-note"
+          data-ar="سيتم حفظ إيصال التحويل بشكل خاص وآمن للمراجعة من إدارة المركز."
+          data-en="Your transfer receipt will be stored privately and securely for Centre administration review.">
+          سيتم حفظ إيصال التحويل بشكل خاص وآمن للمراجعة من إدارة المركز.
+        </small>
+      </div>
+
+      <div class="button-row">
+        <button id="backBtn" class="outline" type="button" data-ar="رجوع" data-en="Back">رجوع</button>
+        <button id="submitBtn" class="primary" type="button" data-ar="إرسال للمراجعة" data-en="Submit for review">إرسال للمراجعة</button>
+      </div>
+    </section>
+
+    <section id="step3" class="card success">
+      <div class="check">✓</div>
+      <h2 data-ar="وصلنا تبرعك" data-en="Donation received">وصلنا تبرعك</h2>
+      <p data-ar="تم تسجيل بيانات التبرع بانتظار مراجعة الإدارة وتأكيد وصول المبلغ. جزاكم الله خيرًا."
+         data-en="Your donation details have been recorded pending administration review and payment confirmation. Jazakum Allahu Khayran.">
+        تم تسجيل بيانات التبرع بانتظار مراجعة الإدارة وتأكيد وصول المبلغ. جزاكم الله خيرًا.
+      </p>
+      <div id="referenceBox" class="reference-box"></div>
+      <button id="doneBtn" class="primary" type="button" data-ar="تم" data-en="Done">تم</button>
+    </section>
+
+    <footer>
+      <p data-ar="مركز دار الأرقم لتعليم القرآن الكريم للنساء – مملكة البحرين"
+         data-en="Dar Al Arqum Quranic Studies Centre – Kingdom of Bahrain">
+         مركز دار الأرقم لتعليم القرآن الكريم للنساء – مملكة البحرين
+      </p>
+      <p class="tiny" data-ar="يتم استخدام البيانات المقدمة فقط لمراجعة التبرع وتأكيد التحويل."
+         data-en="Submitted information is used only to review the donation and confirm the transfer.">
+         يتم استخدام البيانات المقدمة فقط لمراجعة التبرع وتأكيد التحويل.
+      </p>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="app.js"></script>
+</body>
+</html>
