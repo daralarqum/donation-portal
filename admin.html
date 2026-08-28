@@ -831,7 +831,7 @@
                 ${t("receipt")}
               </button>
 
-              <div class="decision-actions">
+              ${status === "pending" ? `<div class="decision-actions">
 
                 <button
                   class="approve-btn"
@@ -849,7 +849,7 @@
                   ${t("reject")}
                 </button>
 
-              </div>
+              </div>` : ""}
 
             </article>
           `;
