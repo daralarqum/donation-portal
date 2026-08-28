@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fcfbf8">
+
+  <title>إدارة التبرعات | مركز دار الأرقم</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --bg: #fcfbf8;
+      --white: #ffffff;
+      --taupe: #756b5e;
+      --taupe-dark: #4b4640;
+      --gold: #b89a5e;
+      --gold-dark: #92753f;
+      --gold-soft: #f5f0e6;
+      --silver: #e9e7e2;
+      --muted: #77726a;
+      --line: #e6e0d6;
+      --approved-bg: #eef6ef;
+      --approved-text: #487250;
+      --rejected-bg: #f9eeee;
+      --rejected-text: #965555;
+      --pending-bg: #f8f3e8;
+      --pending-text: #92753f;
+      --shadow: 0 14px 40px rgba(70, 60, 45, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--taupe-dark);
+      font-family: "Noto Kufi Arabic", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(900px, 100%);
+      margin: auto;
+      padding: 20px 15px 45px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .logo {
+      display: block;
+      width: min(150px, 45vw);
+      height: auto;
+      margin: 0 auto 8px;
+      mix-blend-mode: multiply;
+    }
+
+    .brand h1 {
+      margin: 5px 0;
+      color: var(--taupe-dark);
+      font-size: clamp(19px, 5vw, 27px);
+    }
+
+    .brand p {
+      margin: 0;
+      color: var(--gold-dark);
+      font-size: 12px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .login-card {
+      width: min(470px, 100%);
+      margin: 35px auto 0;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      margin: 0 0 4px;
+    }
+
+    .login-card > p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 11px;
+      margin: 0 0 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      margin: 11px 0 5px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 11px 12px;
+      background: var(--white);
+      color: var(--taupe-dark);
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184, 154, 94, 0.10);
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: white;
+      border-radius: 13px;
+      padding: 11px 15px;
+      font-weight: 700;
+      margin-top: 16px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .dashboard-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .dashboard-head h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .logout-btn,
+    .refresh-btn {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--taupe-dark);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .head-actions {
+      display: flex;
+      gap: 7px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .summary-box {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .summary-box strong {
+      display: block;
+      color: var(--gold-dark);
+      font-size: 20px;
+    }
+
+    .summary-box span {
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .donations {
+      display: grid;
+      gap: 12px;
+    }
+
+    .donation {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 15px;
+      box-shadow: var(--shadow);
+    }
+
+    .donation-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .reference {
+      font-size: 11px;
+      font-weight: 700;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 9px;
+      margin-top: 2px;
+    }
+
+    .status {
+      display: inline-block;
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-size: 9px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status.pending {
+      background: var(--pending-bg);
+      color: var(--pending-text);
+    }
+
+    .status.approved {
+      background: var(--approved-bg);
+      color: var(--approved-text);
+    }
+
+    .status.rejected {
+      background: var(--rejected-bg);
+      color: var(--rejected-text);
+    }
+
+    .details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .detail {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 9px;
+    }
+
+    .detail span {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .detail strong {
+      display: block;
+      font-size: 11px;
+      word-break: break-word;
+    }
+
+    .amount {
+      color: var(--gold-dark);
+      font-size: 15px !important;
+    }
+
+    .receipt-btn {
+      width: 100%;
+      border: 1px solid var(--gold);
+      background: var(--gold-soft);
+      color: var(--gold-dark);
+      border-radius: 12px;
+      padding: 9px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .decision-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .approve-btn,
+    .reject-btn {
+      border-radius: 12px;
+      padding: 9px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .approve-btn {
+      border: 1px solid #8eb096;
+      background: var(--approved-bg);
+      color: var(--approved-text);
+    }
+
+    .reject-btn {
+      border: 1px solid #d5aaaa;
+      background: var(--rejected-bg);
+      color: var(--rejected-text);
+    }
+
+    .empty,
+    .loading {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 10px;
+      font-size: 11px;
+    }
+
+    .error {
+      color: #965555;
+      background: var(--rejected-bg);
+      border-radius: 10px;
+      padding: 8px;
+      font-size: 10px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      transform: translate(-50%, 15px);
+      background: var(--taupe-dark);
+      color: white;
+      border-radius: 30px;
+      padding: 9px 15px;
+      font-size: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+      z-index: 99;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 560px) {
+      .summary {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .details {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .dashboard-head {
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+
+    <section class="brand">
+      <img src="logo.jpeg" class="logo" alt="Dar Al Arqum">
+      <h1>إدارة التبرعات</h1>
+      <p>مركز دار الأرقم لتعليم القرآن الكريم للنساء</p>
+    </section>
+
+    <section id="loginSection" class="card login-card">
+      <h2>دخول الإدارة</h2>
+      <p>هذه الصفحة مخصصة للإدارة فقط</p>
+
+      <label for="email">البريد الإلكتروني</label>
+      <input
+        id="email"
+        type="email"
+        autocomplete="username"
+        placeholder="Email"
+      >
+
+      <label for="password">كلمة المرور</label>
+      <input
+        id="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Password"
+      >
+
+      <button id="loginBtn" class="primary-btn" type="button">
+        تسجيل الدخول
+      </button>
+
+      <div id="loginError" class="error hidden"></div>
+    </section>
+
+    <section id="dashboardSection" class="hidden">
+
+      <div class="dashboard-head">
+        <div>
+          <h2>التبرعات</h2>
+          <div id="adminEmail" class="date"></div>
+        </div>
+
+        <div class="head-actions">
+          <button id="refreshBtn" class="refresh-btn" type="button">
+            تحديث
+          </button>
+
+          <button id="logoutBtn" class="logout-btn" type="button">
+            تسجيل الخروج
+          </button>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="summary-box">
+          <strong id="pendingCount">0</strong>
+          <span>بانتظار المراجعة</span>
+        </div>
+
+        <div class="summary-box">
+          <strong id="approvedCount">0</strong>
+          <span>معتمدة</span>
+        </div>
+
+        <div class="summary-box">
+          <strong id="rejectedCount">0</strong>
+          <span>مرفوضة</span>
+        </div>
+      </div>
+
+      <div id="donationsList" class="donations">
+        <div class="loading">جارٍ تحميل التبرعات...</div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const { createClient } = supabase;
+
+    const supabaseClient = createClient(
+      "https://pktxrjqiqrmflrjbexpb.supabase.co",
+      "sb_publishable_8wgD-XJ9FnfHUIeY7to8LQ_P-1pTu1m"
+    );
+
+    const $ = (id) => document.getElementById(id);
+
+    const purposeLabels = {
+      general: "صدقة عامة",
+      students: "دعم طالبات القرآن",
+      events: "الفعاليات والمسابقات",
+      expenses: "دعم مصاريف المركز",
+      other: "أخرى",
+      expansion: "استكمال توسعة مركز دار الأرقم"
+    };
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(window.toastTimer);
+
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+    function statusArabic(status) {
+      if (status === "approved") return "معتمد";
+      if (status === "rejected") return "مرفوض";
+      return "بانتظار المراجعة";
+    }
+
+    function safeText(value) {
+      if (value === null || value === undefined || value === "") {
+        return "—";
+      }
+
+      return String(value);
+    }
+
+    function formatDate(value) {
+      if (!value) return "—";
+
+      return new Date(value).toLocaleString("ar-BH", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      });
+    }
+
+    async function showDashboard(user) {
+      $("loginSection").classList.add("hidden");
+      $("dashboardSection").classList.remove("hidden");
+      $("adminEmail").textContent = user.email || "";
+      await loadDonations();
+    }
+
+    function showLogin() {
+      $("dashboardSection").classList.add("hidden");
+      $("loginSection").classList.remove("hidden");
+      $("password").value = "";
+    }
+
+    $("loginBtn").addEventListener("click", async () => {
+      const email = $("email").value.trim();
+      const password = $("password").value;
+
+      $("loginError").classList.add("hidden");
+      $("loginBtn").disabled = true;
+      $("loginBtn").textContent = "جارٍ الدخول...";
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      $("loginBtn").disabled = false;
+      $("loginBtn").textContent = "تسجيل الدخول";
+
+      if (error) {
+        $("loginError").textContent =
+          "تعذر تسجيل الدخول. تأكد من البريد الإلكتروني وكلمة المرور.";
+        $("loginError").classList.remove("hidden");
+        return;
+      }
+
+      await showDashboard(data.user);
+    });
+
+    $("password").addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        $("loginBtn").click();
+      }
+    });
+
+    $("logoutBtn").addEventListener("click", async () => {
+      await supabaseClient.auth.signOut();
+      showLogin();
+    });
+
+    $("refreshBtn").addEventListener("click", loadDonations);
+
+    async function loadDonations() {
+      $("donationsList").innerHTML =
+        '<div class="loading">جارٍ تحميل التبرعات...</div>';
+
+      const { data, error } =
+        await supabaseClient
+          .from("donations")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+      if (error) {
+        $("donationsList").innerHTML =
+          '<div class="error">تعذر تحميل التبرعات.</div>';
+        console.error(error);
+        return;
+      }
+
+      renderDonations(data || []);
+    }
+
+    function renderDonations(donations) {
+      const pending = donations.filter(
+        item => item.status === "pending"
+      ).length;
+
+      const approved = donations.filter(
+        item => item.status === "approved"
+      ).length;
+
+      const rejected = donations.filter(
+        item => item.status === "rejected"
+      ).length;
+
+      $("pendingCount").textContent = pending;
+      $("approvedCount").textContent = approved;
+      $("rejectedCount").textContent = rejected;
+
+      if (!donations.length) {
+        $("donationsList").innerHTML =
+          '<div class="empty">لا توجد تبرعات حتى الآن.</div>';
+        return;
+      }
+
+      $("donationsList").innerHTML = donations
+        .map((donation) => {
+
+          const purpose =
+            purposeLabels[donation.donation_purpose]
+            || donation.donation_purpose
+            || "—";
+
+          const status =
+            donation.status || "pending";
+
+          return `
+            <article class="donation">
+
+              <div class="donation-top">
+                <div>
+                  <div class="reference">
+                    ${safeText(donation.reference_number)}
+                  </div>
+
+                  <div class="date">
+                    ${formatDate(donation.created_at)}
+                  </div>
+                </div>
+
+                <span class="status ${status}">
+                  ${statusArabic(status)}
+                </span>
+              </div>
+
+              <div class="details">
+
+                <div class="detail">
+                  <span>المبلغ</span>
+                  <strong class="amount">
+                    ${Number(donation.amount || 0).toFixed(3)} BHD
+                  </strong>
+                </div>
+
+                <div class="detail">
+                  <span>مجال التبرع</span>
+                  <strong>${safeText(purpose)}</strong>
+                </div>
+
+                <div class="detail">
+                  <span>الاسم</span>
+                  <strong>${safeText(donation.donor_name)}</strong>
+                </div>
+
+                <div class="detail">
+                  <span>رقم التواصل</span>
+                  <strong>${safeText(donation.contact_number)}</strong>
+                </div>
+
+                <div class="detail" style="grid-column:1/-1;">
+                  <span>ملاحظات</span>
+                  <strong>${safeText(donation.notes)}</strong>
+                </div>
+
+              </div>
+
+              <button
+                class="receipt-btn"
+                type="button"
+                onclick="openReceipt('${donation.receipt_path || ""}')"
+              >
+                عرض إيصال التحويل
+              </button>
+
+              <div class="decision-actions">
+
+                <button
+                  class="approve-btn"
+                  type="button"
+                  onclick="updateStatus(${donation.id}, 'approved')"
+                >
+                  اعتماد
+                </button>
+
+                <button
+                  class="reject-btn"
+                  type="button"
+                  onclick="updateStatus(${donation.id}, 'rejected')"
+                >
+                  رفض
+                </button>
+
+              </div>
+
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    async function openReceipt(path) {
+      if (!path) {
+        showToast("لا يوجد إيصال مرفق.");
+        return;
+      }
+
+      const { data, error } =
+        await supabaseClient.storage
+          .from("donation-receipts")
+          .createSignedUrl(path, 120);
+
+      if (error || !data?.signedUrl) {
+        console.error(error);
+        showToast("تعذر فتح الإيصال.");
+        return;
+      }
+
+      window.open(data.signedUrl, "_blank");
+    }
+
+    async function updateStatus(id, status) {
+      const arabicStatus =
+        status === "approved" ? "اعتماد" : "رفض";
+
+      const confirmed = confirm(
+        `هل تريد تأكيد ${arabicStatus} هذا التبرع؟`
+      );
+
+      if (!confirmed) return;
+
+      const { error } =
+        await supabaseClient
+          .from("donations")
+          .update({ status })
+          .eq("id", id);
+
+      if (error) {
+        console.error(error);
+        showToast("تعذر تحديث حالة التبرع.");
+        return;
+      }
+
+      showToast(
+        status === "approved"
+          ? "تم اعتماد التبرع."
+          : "تم رفض التبرع."
+      );
+
+      await loadDonations();
+    }
+
+    window.openReceipt = openReceipt;
+    window.updateStatus = updateStatus;
+
+    async function initialise() {
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (session?.user) {
+        await showDashboard(session.user);
+      } else {
+        showLogin();
+      }
+    }
+
+    initialise();
+  </script>
+</body>
+</html>
