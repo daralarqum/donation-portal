@@ -1,38 +1,675 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#ffffff" />
-  <title>التبرع | مركز دار الأرقم لتعليم القرآن الكريم للنساء</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fcfbf8">
+
+  <title>التبرعات | مركز دار الأرقم لتعليم القرآن الكريم للنساء</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fcfbf8;
+      --white: #ffffff;
+      --taupe: #756b5e;
+      --taupe-dark: #4b4640;
+      --gold: #b89a5e;
+      --gold-dark: #92753f;
+      --gold-soft: #f5f0e6;
+      --silver: #e9e7e2;
+      --silver-dark: #b8b5ae;
+      --text: #393733;
+      --muted: #77726a;
+      --line: #e6e0d6;
+      --shadow: 0 14px 40px rgba(70, 60, 45, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Kufi Arabic", Arial, sans-serif;
+      line-height: 1.8;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* TOP MOVING STRIP */
+    .ticker {
+      width: 100%;
+      overflow: hidden;
+      background: #f1f0ed;
+      border-bottom: 1px solid var(--silver);
+      color: var(--taupe);
+      font-size: 12px;
+      white-space: nowrap;
+      padding: 7px 0;
+    }
+
+    .ticker-track {
+      display: inline-block;
+      min-width: 100%;
+      animation: tickerMove 22s linear infinite;
+    }
+
+    @keyframes tickerMove {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(100%);
+      }
+    }
+
+    html[dir="ltr"] .ticker-track {
+      animation-direction: reverse;
+    }
+
+    .page {
+      width: min(760px, 100%);
+      margin: auto;
+      padding: 16px 16px 42px;
+    }
+
+    /* LANGUAGE */
+    .top-actions {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 6px;
+    }
+
+    .lang-btn {
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--taupe);
+      border-radius: 30px;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 4px 6px 25px;
+    }
+
+    .basmala {
+      font-family: "Aref Ruqaa", serif;
+      color: var(--gold-dark);
+      font-size: clamp(24px, 6vw, 35px);
+      margin: 8px 0 4px;
+    }
+
+    .logo {
+      display: block;
+      width: min(260px, 72vw);
+      height: auto;
+      margin: 0 auto 4px;
+    }
+
+    .hero h1 {
+      margin: 4px auto 9px;
+      font-size: clamp(19px, 4.7vw, 28px);
+      line-height: 1.55;
+      color: var(--taupe-dark);
+    }
+
+    .hero-main {
+      color: var(--gold-dark);
+      font-weight: 700;
+      font-size: clamp(15px, 3.8vw, 19px);
+      margin: 0 0 4px;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 12px;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    /* FEATURED EXPANSION */
+    .featured {
+      background: var(--white);
+      border: 1px solid var(--gold);
+      border-radius: 22px;
+      padding: 23px 18px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured::before,
+    .featured::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border: 1px solid rgba(184,154,94,0.10);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .featured::before {
+      top: -55px;
+      right: -45px;
+    }
+
+    .featured::after {
+      bottom: -65px;
+      left: -55px;
+    }
+
+    .featured-small {
+      color: var(--gold-dark);
+      font-family: "Aref Ruqaa", serif;
+      font-size: 24px;
+      margin-bottom: 2px;
+    }
+
+    .featured h2 {
+      margin: 3px 0 6px;
+      color: var(--taupe-dark);
+      font-size: 20px;
+    }
+
+    .featured p {
+      margin: 0 auto 15px;
+      color: var(--muted);
+      font-size: 12px;
+      max-width: 540px;
+    }
+
+    .featured-btn {
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 11px 22px;
+      font-weight: 700;
+      min-width: 170px;
+    }
+
+    /* FORM CARD */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .section-title {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .step {
+      flex: 0 0 33px;
+      height: 33px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--gold-soft);
+      color: var(--gold-dark);
+      border: 1px solid var(--gold);
+      font-weight: 700;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      color: var(--taupe-dark);
+      font-size: 18px;
+    }
+
+    .section-title p {
+      margin: 1px 0 0;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* DONATION PURPOSES */
+    .purposes {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 9px;
+      margin-bottom: 18px;
+    }
+
+    .purpose {
+      text-align: start;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--taupe-dark);
+      border-radius: 15px;
+      padding: 13px 12px;
+      min-height: 70px;
+      font-weight: 600;
+      font-size: 12px;
+      transition: 0.15s ease;
+    }
+
+    .purpose.active {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+      color: var(--gold-dark);
+      box-shadow: inset 0 0 0 1px rgba(184,154,94,0.18);
+    }
+
+    .purpose small {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+      line-height: 1.65;
+      margin-top: 3px;
+      font-weight: 400;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 12px;
+      color: var(--taupe-dark);
+      margin: 12px 0 6px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--white);
+      padding: 11px 12px;
+      outline: none;
+      color: var(--text);
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(184,154,94,0.10);
+    }
+
+    .amount-wrap {
+      position: relative;
+    }
+
+    .amount-wrap span {
+      position: absolute;
+      inset-inline-end: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-dark);
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .amount-wrap input {
+      padding-inline-end: 55px;
+    }
+
+    .quick-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin: 9px 0 15px;
+    }
+
+    .quick-amounts button {
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--taupe);
+      border-radius: 11px;
+      padding: 8px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: var(--white);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--gold);
+      background: var(--white);
+      color: var(--gold-dark);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 700;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 9px;
+      margin-top: 17px;
+    }
+
+    /* TRANSFER */
+    .iban-box {
+      background: #f8f6f1;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 15px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .iban-box span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .iban-box strong {
+      display: block;
+      direction: ltr;
+      font-size: clamp(16px, 4vw, 21px);
+      color: var(--taupe-dark);
+      margin: 4px 0 9px;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      border: 1px solid var(--gold);
+      background: var(--white);
+      color: var(--gold-dark);
+      border-radius: 30px;
+      padding: 5px 16px;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 11px 0 14px;
+    }
+
+    .summary div {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 10px;
+      background: var(--white);
+    }
+
+    .summary span {
+      display: block;
+      color: var(--muted);
+      font-size: 8px;
+    }
+
+    .summary strong {
+      color: var(--taupe-dark);
+      font-size: 11px;
+    }
+
+    .transfer-steps {
+      border-inline-start: 2px solid var(--gold);
+      padding-inline-start: 11px;
+      margin: 14px 0;
+    }
+
+    .transfer-steps p {
+      margin: 6px 0;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .privacy {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      margin-top: 5px;
+    }
+
+    /* PERMIT */
+    .permit {
+      border: 1px solid var(--gold);
+      background: var(--white);
+      border-radius: 18px;
+      padding: 16px;
+      margin: 18px 0;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .permit strong {
+      display: block;
+      color: var(--gold-dark);
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    .permit p {
+      margin: 0;
+      color: var(--taupe-dark);
+      font-size: 10px;
+    }
+
+    .permit .permit-no {
+      display: inline-block;
+      margin-top: 6px;
+      background: var(--gold-soft);
+      border-radius: 30px;
+      padding: 4px 12px;
+      color: var(--gold-dark);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    /* SUCCESS */
+    .success {
+      text-align: center;
+    }
+
+    .success-mark {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 9px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold-soft);
+      color: var(--gold-dark);
+      font-size: 28px;
+    }
+
+    .reference {
+      background: #f8f6f1;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 9px;
+      margin: 12px 0;
+      font-weight: 700;
+      color: var(--taupe-dark);
+    }
+
+    /* FOOTER */
+    .share-area {
+      text-align: center;
+      padding: 6px 0 20px;
+    }
+
+    .share-area h3 {
+      font-family: "Aref Ruqaa", serif;
+      color: var(--gold-dark);
+      margin: 0 0 8px;
+      font-size: 23px;
+    }
+
+    .share-btn {
+      border: 1px solid var(--gold);
+      background: var(--white);
+      color: var(--gold-dark);
+      border-radius: 14px;
+      padding: 9px 18px;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding-top: 17px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .footer-link {
+      text-decoration: none;
+      border: 1px solid var(--line);
+      background: var(--white);
+      border-radius: 14px;
+      padding: 11px;
+      color: var(--taupe-dark);
+    }
+
+    .footer-link strong {
+      display: block;
+      font-size: 10px;
+    }
+
+    .footer-link span {
+      display: block;
+      color: var(--gold-dark);
+      font-size: 10px;
+      direction: ltr;
+    }
+
+    .copyright {
+      color: var(--muted);
+      font-size: 9px;
+      margin: 8px 0 0;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translate(-50%, 15px);
+      background: var(--taupe-dark);
+      color: white;
+      border-radius: 30px;
+      padding: 9px 15px;
+      font-size: 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s;
+      z-index: 99;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 480px) {
+      .page {
+        padding: 12px 11px 35px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .purposes {
+        gap: 7px;
+      }
+
+      .purpose {
+        padding: 10px;
+        min-height: 76px;
+        font-size: 11px;
+      }
+
+      .purpose small {
+        font-size: 7.5px;
+      }
+
+      .footer-links {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- Language -->
-  <header class="topbar">
-    <button id="langBtn" class="lang-btn" type="button">
-      English
-    </button>
-  </header>
+  <div class="ticker">
+    <div
+      id="tickerText"
+      class="ticker-track"
+      data-ar="صدقةٌ جارية… وأثرٌ يمتد بإذن الله"
+      data-en="A lasting charity… an impact that continues by Allah’s permission"
+    >
+      صدقةٌ جارية… وأثرٌ يمتد بإذن الله
+    </div>
+  </div>
 
-  <main class="shell">
+  <main class="page">
 
-    <!-- BRAND -->
-    <section class="brand">
+    <div class="top-actions">
+      <button id="langBtn" class="lang-btn" type="button">English</button>
+    </div>
 
-      <div class="logo-wrap">
-        <img
-          src="logo.jpeg"
-          alt="Dar Al Arqum Quranic Studies Centre"
-          class="logo"
-        />
-      </div>
+    <section class="hero">
 
-      <div class="basmala">
+      <div
+        class="basmala"
+        data-ar="بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ"
+        data-en="In the name of Allah, the Most Gracious, the Most Merciful"
+      >
         بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
       </div>
+
+      <img
+        src="logo.jpeg"
+        class="logo"
+        alt="Dar Al Arqum Quranic Studies Centre"
+      >
 
       <h1
         data-ar="مركز دار الأرقم لتعليم القرآن الكريم للنساء"
@@ -42,97 +679,184 @@
       </h1>
 
       <p
-        class="subtitle"
-        data-ar="نَبني بالقرآن قِيَمًا وأخلاقًا تسمو بالمجتمع"
-        data-en="Through the Qur’an, we nurture values and character that uplift our community."
+        class="hero-main"
+        data-ar="معًا نُعين على تعليم كتاب الله، ونصنع أثرًا يبقى."
+        data-en="Together, we support the teaching of the Book of Allah and create an impact that endures."
       >
-        نَبني بالقرآن قِيَمًا وأخلاقًا تسمو بالمجتمع
+        معًا نُعين على تعليم كتاب الله، ونصنع أثرًا يبقى.
       </p>
 
       <p
-        class="intro"
-        data-ar="ساهم معنا في استمرار رسالة تعليم القرآن الكريم وأثرها"
-        data-en="Contribute to sustaining the mission of Qur’an education and its lasting impact."
+        class="hero-sub"
+        data-ar="بمساهمتكم يستمر العطاء، وتمتد رسالة القرآن إلى أجيالٍ قادمة."
+        data-en="With your contribution, the giving continues and the message of the Quran reaches generations to come."
       >
-        ساهم معنا في استمرار رسالة تعليم القرآن الكريم وأثرها
+        بمساهمتكم يستمر العطاء، وتمتد رسالة القرآن إلى أجيالٍ قادمة.
       </p>
 
     </section>
 
-    <!-- DONATION FORM -->
-    <section class="donation-card">
 
-      <div class="step-number">1</div>
+    <section class="featured">
+
+      <div
+        class="featured-small"
+        data-ar="ساهم في صدقةٍ جارية"
+        data-en="Contribute to a lasting charity"
+      >
+        ساهم في صدقةٍ جارية
+      </div>
 
       <h2
-        data-ar="اختاري مجال التبرع"
-        data-en="Choose a donation category"
+        data-ar="استكمال توسعة مركز دار الأرقم"
+        data-en="Complete the Expansion of Dar Al Arqum Centre"
       >
-        اختاري مجال التبرع
+        استكمال توسعة مركز دار الأرقم
       </h2>
 
-      <div class="donation-options">
+      <p
+        data-ar="ليمتد أثر عطائك مع كل آيةٍ تُتلى، وكل علمٍ يُنتفع به."
+        data-en="May the impact of your giving continue with every verse recited and every beneficial lesson shared."
+      >
+        ليمتد أثر عطائك مع كل آيةٍ تُتلى، وكل علمٍ يُنتفع به.
+      </p>
 
-        <button class="donation-option active" type="button"
+      <button
+        id="expansionBtn"
+        class="featured-btn"
+        type="button"
+        data-ar="ساهم الآن"
+        data-en="Contribute Now"
+      >
+        ساهم الآن
+      </button>
+
+    </section>
+
+
+    <section id="step1" class="card">
+
+      <div class="section-title">
+        <div class="step">1</div>
+        <div>
+          <h2
+            data-ar="اختاري مجال التبرع"
+            data-en="Choose a donation purpose"
+          >
+            اختاري مجال التبرع
+          </h2>
+
+          <p
+            data-ar="اختاري المجال الأقرب لنيّتك، أو اتركيها صدقة عامة."
+            data-en="Choose the purpose closest to your intention, or leave it as General Charity."
+          >
+            اختاري المجال الأقرب لنيّتك، أو اتركيها صدقة عامة.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="purposes">
+
+        <button
+          class="purpose active"
+          type="button"
           data-value="general"
           data-ar="صدقة عامة"
-          data-en="General Donation">
+          data-en="General Charity"
+          data-desc-ar="تُوجَّه حيث تكون حاجة المركز."
+          data-desc-en="Directed where the Centre needs it most."
+        >
           صدقة عامة
+          <small>تُوجَّه حيث تكون حاجة المركز.</small>
         </button>
 
-        <button class="donation-option" type="button"
-          data-value="teacher"
-          data-ar="كفالة معلمة قرآن"
-          data-en="Sponsor a Qur’an Teacher">
-          كفالة معلمة قرآن
+        <button
+          class="purpose"
+          type="button"
+          data-value="students"
+          data-ar="دعم طالبات القرآن"
+          data-en="Support Quran Students"
+          data-desc-ar="للمساهمة في دعم الطالبات ومسيرتهن التعليمية."
+          data-desc-en="Supporting students and their Quran learning journey."
+        >
+          دعم طالبات القرآن
+          <small>للمساهمة في دعم الطالبات ومسيرتهن التعليمية.</small>
         </button>
 
-        <button class="donation-option" type="button"
-          data-value="student"
-          data-ar="كفالة مسيرة طالبة"
-          data-en="Sponsor a Student’s Qur’an Journey">
-          كفالة مسيرة طالبة
-        </button>
-
-        <button class="donation-option" type="button"
-          data-value="activities"
+        <button
+          class="purpose"
+          type="button"
+          data-value="events"
           data-ar="الفعاليات والمسابقات"
-          data-en="Activities & Competitions">
+          data-en="Events & Competitions"
+          data-desc-ar="لدعم الفعاليات والأنشطة والمسابقات القرآنية."
+          data-desc-en="Supporting Quran events, activities and competitions."
+        >
           الفعاليات والمسابقات
+          <small>لدعم الفعاليات والأنشطة والمسابقات القرآنية.</small>
         </button>
 
-        <button class="donation-option" type="button"
-          data-value="centre"
-          data-ar="مصاريف المركز"
-          data-en="Centre Expenses">
-          مصاريف المركز
+        <button
+          class="purpose"
+          type="button"
+          data-value="expenses"
+          data-ar="دعم مصاريف المركز"
+          data-en="Support Centre Expenses"
+          data-desc-ar="للمصاريف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز."
+          data-desc-en="For operating expenses, teaching and administrative staff salaries, and Centre needs."
+        >
+          دعم مصاريف المركز
+          <small>للمصاريف التشغيلية ورواتب الكادر التعليمي والإداري واحتياجات المركز.</small>
         </button>
 
-        <button class="donation-option" type="button"
+        <button
+          class="purpose"
+          type="button"
+          data-value="projects"
+          data-ar="مشاريع المركز"
+          data-en="Centre Projects"
+          data-desc-ar="للمشاريع والتطوير والاحتياجات الخاصة."
+          data-desc-en="For projects, development and special Centre needs."
+        >
+          مشاريع المركز
+          <small>للمشاريع والتطوير والاحتياجات الخاصة.</small>
+        </button>
+
+        <button
+          class="purpose"
+          type="button"
           data-value="other"
           data-ar="أخرى"
-          data-en="Other">
+          data-en="Other"
+          data-desc-ar="يمكن تحديد الغرض في الملاحظات."
+          data-desc-en="You can specify the purpose in the notes."
+        >
           أخرى
+          <small>يمكن تحديد الغرض في الملاحظات.</small>
         </button>
 
       </div>
 
+
       <label
         for="amount"
         data-ar="مبلغ التبرع (د.ب)"
-        data-en="Donation Amount (BHD)">
+        data-en="Donation Amount (BHD)"
+      >
         مبلغ التبرع (د.ب)
       </label>
 
-      <div class="amount-box">
-        <span>BHD</span>
+      <div class="amount-wrap">
         <input
           id="amount"
           type="number"
-          min="1"
-          step="1"
+          inputmode="decimal"
+          min="0.001"
+          step="0.001"
           placeholder="10.000"
-        />
+        >
+        <span>BHD</span>
       </div>
 
       <div class="quick-amounts">
@@ -144,33 +868,47 @@
 
       <button
         id="continueBtn"
-        class="continue-btn"
+        class="primary-btn"
         type="button"
         data-ar="متابعة"
-        data-en="Continue">
+        data-en="Continue"
+      >
         متابعة
       </button>
 
     </section>
 
-    <!-- BANK DETAILS -->
-    <section class="bank-details">
 
-      <h2
-        data-ar="بيانات التحويل"
-        data-en="Bank Transfer Details">
-        بيانات التحويل
-      </h2>
+    <section id="step2" class="card hidden">
 
-      <p
-        data-ar="يمكنكم تحويل التبرع مباشرة إلى حساب المركز:"
-        data-en="You may transfer your donation directly to the Centre’s account:">
-        يمكنكم تحويل التبرع مباشرة إلى حساب المركز:
-      </p>
+      <div class="section-title">
+        <div class="step">2</div>
+
+        <div>
+          <h2
+            data-ar="إتمام التبرع"
+            data-en="Complete Your Donation"
+          >
+            إتمام التبرع
+          </h2>
+
+          <p
+            data-ar="بعد التحويل إلى حساب المركز، ارفعي إيصال التحويل للمراجعة."
+            data-en="After transferring to the Centre account, upload your transfer receipt for review."
+          >
+            بعد التحويل إلى حساب المركز، ارفعي إيصال التحويل للمراجعة.
+          </p>
+        </div>
+      </div>
+
 
       <div class="iban-box">
-
-        <span class="iban-label">IBAN</span>
+        <span
+          data-ar="رقم الآيبان (IBAN)"
+          data-en="IBAN"
+        >
+          رقم الآيبان (IBAN)
+        </span>
 
         <strong id="iban">
           BH49BIBB00100001622264
@@ -178,47 +916,728 @@
 
         <button
           id="copyIban"
+          class="copy-btn"
           type="button"
-          data-ar="نسخ"
-          data-en="Copy">
-          نسخ
+          data-ar="نسخ رقم الآيبان"
+          data-en="Copy IBAN"
+        >
+          نسخ رقم الآيبان
         </button>
-
       </div>
 
-      <p
-        class="license"
-        data-ar="مركز دار الأرقم لتعليم القرآن الكريم للنساء مصرح له بجمع التبرعات من وزارة العدل والشؤون الإسلامية والأوقاف – ترخيص رقم ISL-728."
-        data-en="Dar Al Arqum Quranic Studies Centre is authorized to collect donations by the Ministry of Justice, Islamic Affairs and Waqf – Licence No. ISL-728.">
-        مركز دار الأرقم لتعليم القرآن الكريم للنساء مصرح له بجمع التبرعات من وزارة العدل والشؤون الإسلامية والأوقاف – ترخيص رقم ISL-728.
-      </p>
+
+      <div class="summary">
+        <div>
+          <span
+            data-ar="المبلغ"
+            data-en="Amount"
+          >
+            المبلغ
+          </span>
+          <strong id="summaryAmount">—</strong>
+        </div>
+
+        <div>
+          <span
+            data-ar="مجال التبرع"
+            data-en="Purpose"
+          >
+            مجال التبرع
+          </span>
+          <strong id="summaryPurpose">—</strong>
+        </div>
+      </div>
+
+
+      <div class="transfer-steps">
+        <p
+          data-ar="1. افتحي تطبيق البنك أو BenefitPay."
+          data-en="1. Open your bank app or BenefitPay."
+        >
+          1. افتحي تطبيق البنك أو BenefitPay.
+        </p>
+
+        <p
+          data-ar="2. حوّلي المبلغ إلى رقم الآيبان الموضح أعلاه."
+          data-en="2. Transfer the amount to the IBAN shown above."
+        >
+          2. حوّلي المبلغ إلى رقم الآيبان الموضح أعلاه.
+        </p>
+
+        <p
+          data-ar="3. احتفظي بصورة إيصال التحويل."
+          data-en="3. Keep an image of the transfer receipt."
+        >
+          3. احتفظي بصورة إيصال التحويل.
+        </p>
+
+        <p
+          data-ar="4. ارفعي الإيصال أدناه وأرسليه للمراجعة."
+          data-en="4. Upload the receipt below and submit it for review."
+        >
+          4. ارفعي الإيصال أدناه وأرسليه للمراجعة.
+        </p>
+      </div>
+
+
+      <label
+        for="donorName"
+        data-ar="الاسم (اختياري)"
+        data-en="Name (optional)"
+      >
+        الاسم (اختياري)
+      </label>
+
+      <input
+        id="donorName"
+        type="text"
+        autocomplete="name"
+      >
+
+
+      <label
+        for="contact"
+        data-ar="رقم التواصل (اختياري)"
+        data-en="Contact Number (optional)"
+      >
+        رقم التواصل (اختياري)
+      </label>
+
+      <input
+        id="contact"
+        type="tel"
+        inputmode="tel"
+        autocomplete="tel"
+      >
+
+
+      <label
+        for="notes"
+        data-ar="ملاحظات (اختياري)"
+        data-en="Notes (optional)"
+      >
+        ملاحظات (اختياري)
+      </label>
+
+      <textarea
+        id="notes"
+        rows="3"
+      ></textarea>
+
+
+      <label
+        for="receipt"
+        data-ar="صورة إيصال التحويل"
+        data-en="Transfer Receipt"
+      >
+        صورة إيصال التحويل
+      </label>
+
+      <input
+        id="receipt"
+        type="file"
+        accept="image/*,application/pdf"
+      >
+
+      <small
+        class="privacy"
+        data-ar="يتم حفظ الإيصال بشكل خاص وآمن للمراجعة من إدارة المركز."
+        data-en="The receipt is stored privately and securely for review by the Centre administration."
+      >
+        يتم حفظ الإيصال بشكل خاص وآمن للمراجعة من إدارة المركز.
+      </small>
+
+
+      <div class="actions">
+        <button
+          id="backBtn"
+          class="secondary-btn"
+          type="button"
+          data-ar="رجوع"
+          data-en="Back"
+        >
+          رجوع
+        </button>
+
+        <button
+          id="submitBtn"
+          class="primary-btn"
+          type="button"
+          data-ar="إرسال للمراجعة"
+          data-en="Submit for Review"
+        >
+          إرسال للمراجعة
+        </button>
+      </div>
 
     </section>
 
+
+    <section id="step3" class="card hidden success">
+
+      <div class="success-mark">✓</div>
+
+      <h2
+        data-ar="جزاكم الله خيرًا"
+        data-en="Jazakum Allahu Khayran"
+      >
+        جزاكم الله خيرًا
+      </h2>
+
+      <p
+        data-ar="تم استلام بيانات التبرع والإيصال، وسيتم مراجعتهما من إدارة المركز."
+        data-en="Your donation details and receipt have been received and will be reviewed by the Centre administration."
+      >
+        تم استلام بيانات التبرع والإيصال، وسيتم مراجعتهما من إدارة المركز.
+      </p>
+
+      <div id="referenceBox" class="reference"></div>
+
+      <button
+        id="doneBtn"
+        class="primary-btn"
+        type="button"
+        data-ar="تم"
+        data-en="Done"
+      >
+        تم
+      </button>
+
+    </section>
+
+
+    <section class="permit">
+
+      <strong
+        data-ar="مصرح للمركز بجمع التبرعات"
+        data-en="The Centre is authorised to collect donations"
+      >
+        مصرح للمركز بجمع التبرعات
+      </strong>
+
+      <p
+        data-ar="من وزارة العدل والشؤون الإسلامية والأوقاف"
+        data-en="By the Ministry of Justice, Islamic Affairs and Waqf"
+      >
+        من وزارة العدل والشؤون الإسلامية والأوقاف
+      </p>
+
+      <span
+        class="permit-no"
+        data-ar="ترخيص رقم: ISL-728"
+        data-en="Permit No.: ISL-728"
+      >
+        ترخيص رقم: ISL-728
+      </span>
+
+    </section>
+
+
+    <section class="share-area">
+
+      <h3
+        data-ar="دلّي على الخير وشاركي الأجر"
+        data-en="Share the good and help the reward reach further"
+      >
+        دلّي على الخير وشاركي الأجر
+      </h3>
+
+      <button
+        id="shareBtn"
+        class="share-btn"
+        type="button"
+        data-ar="مشاركة رابط التبرع"
+        data-en="Share Donation Link"
+      >
+        مشاركة رابط التبرع
+      </button>
+
+    </section>
+
+
+    <footer>
+
+      <div class="footer-links">
+
+        <a
+          class="footer-link"
+          href="https://www.instagram.com/dar_alarqum/"
+          target="_blank"
+          rel="noopener"
+        >
+          <strong
+            data-ar="تابعوا أنشطة مركز دار الأرقم"
+            data-en="Follow Dar Al Arqum Activities"
+          >
+            تابعوا أنشطة مركز دار الأرقم
+          </strong>
+
+          <span>@dar_alarqum</span>
+        </a>
+
+
+        <a
+          class="footer-link"
+          href="https://wa.me/97333909571"
+          target="_blank"
+          rel="noopener"
+        >
+          <strong
+            data-ar="للتواصل والاستفسار"
+            data-en="Contact & Enquiries"
+          >
+            للتواصل والاستفسار
+          </strong>
+
+          <span>+973 3390 9571</span>
+        </a>
+
+      </div>
+
+
+      <p
+        class="copyright"
+        data-ar="© 2026 مركز دار الأرقم لتعليم القرآن الكريم للنساء — جميع الحقوق محفوظة"
+        data-en="© 2026 Dar Al Arqum Quranic Studies Centre — All Rights Reserved"
+      >
+        © 2026 مركز دار الأرقم لتعليم القرآن الكريم للنساء — جميع الحقوق محفوظة
+      </p>
+
+    </footer>
+
   </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
 
-    <p
-      data-ar="مركز دار الأرقم لتعليم القرآن الكريم للنساء – مملكة البحرين"
-      data-en="Dar Al Arqum Quranic Studies Centre – Kingdom of Bahrain">
-      مركز دار الأرقم لتعليم القرآن الكريم للنساء – مملكة البحرين
-    </p>
+  <div id="toast" class="toast"></div>
 
-    <p
-      data-ar="يتم استخدام البيانات المقدمة فقط لمراجعة التبرع وتأكيد التحويل."
-      data-en="The information provided is used only to review the donation and confirm the transfer.">
-      يتم استخدام البيانات المقدمة فقط لمراجعة التبرع وتأكيد التحويل.
-    </p>
 
-    <div class="social-link">
-      Instagram: <strong>@dar_alarqum</strong>
-    </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-  </footer>
+  <script>
+    const { createClient } = supabase;
 
-  <script src="app.js"></script>
+    const supabaseClient = createClient(
+      "https://pktxrjqiqrmflrjbexpb.supabase.co",
+      "sb_publishable_8wgD-XJ9FnfHUIeY7to8LQ_P-1pTu1m"
+    );
+
+    const state = {
+      lang: "ar",
+      purpose: "general",
+      amount: 0
+    };
+
+    const $ = (id) => document.getElementById(id);
+
+    function showToast(message) {
+      const toast = $("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(window.toastTimer);
+
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+
+    function getPurposeButton() {
+      if (state.purpose === "expansion") {
+        return null;
+      }
+
+      return document.querySelector(
+        '.purpose[data-value="' + state.purpose + '"]'
+      );
+    }
+
+
+    function purposeLabel() {
+      if (state.purpose === "expansion") {
+        return state.lang === "ar"
+          ? "استكمال توسعة مركز دار الأرقم"
+          : "Complete the Expansion of Dar Al Arqum Centre";
+      }
+
+      const button = getPurposeButton();
+
+      return button
+        ? button.dataset[state.lang]
+        : "";
+    }
+
+
+    function updateSummary() {
+      $("summaryAmount").textContent =
+        state.amount > 0
+          ? state.amount.toFixed(3) + " BHD"
+          : "—";
+
+      $("summaryPurpose").textContent =
+        purposeLabel() || "—";
+    }
+
+
+    function translatePage() {
+      const isArabic = state.lang === "ar";
+
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = isArabic ? "rtl" : "ltr";
+
+      document
+        .querySelectorAll("[data-ar][data-en]")
+        .forEach((element) => {
+          element.textContent = element.dataset[state.lang];
+        });
+
+      document
+        .querySelectorAll(".purpose")
+        .forEach((button) => {
+          const small = button.querySelector("small");
+
+          const title = button.dataset[state.lang];
+
+          const description =
+            state.lang === "ar"
+              ? button.dataset.descAr
+              : button.dataset.descEn;
+
+          button.childNodes[0].nodeValue = title + " ";
+
+          if (small) {
+            small.textContent = description;
+          }
+        });
+
+      $("langBtn").textContent =
+        isArabic ? "English" : "العربية";
+
+      updateSummary();
+    }
+
+
+    $("langBtn").addEventListener("click", () => {
+      state.lang =
+        state.lang === "ar"
+          ? "en"
+          : "ar";
+
+      translatePage();
+    });
+
+
+    document
+      .querySelectorAll(".purpose")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          document
+            .querySelectorAll(".purpose")
+            .forEach((item) => {
+              item.classList.remove("active");
+            });
+
+          button.classList.add("active");
+
+          state.purpose =
+            button.dataset.value;
+
+          updateSummary();
+        });
+      });
+
+
+    document
+      .querySelectorAll(".quick-amounts button")
+      .forEach((button) => {
+        button.addEventListener("click", () => {
+          $("amount").value =
+            Number(button.dataset.amount).toFixed(3);
+        });
+      });
+
+
+    $("expansionBtn").addEventListener("click", () => {
+      state.purpose = "expansion";
+
+      document
+        .querySelectorAll(".purpose")
+        .forEach((item) => {
+          item.classList.remove("active");
+        });
+
+      $("step1").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+
+      $("amount").focus();
+    });
+
+
+    $("continueBtn").addEventListener("click", () => {
+      const amount =
+        parseFloat($("amount").value);
+
+      if (!amount || amount <= 0) {
+        showToast(
+          state.lang === "ar"
+            ? "يرجى إدخال مبلغ التبرع"
+            : "Please enter a donation amount"
+        );
+
+        return;
+      }
+
+      state.amount = amount;
+
+      updateSummary();
+
+      $("step1").classList.add("hidden");
+      $("step2").classList.remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+
+    $("backBtn").addEventListener("click", () => {
+      $("step2").classList.add("hidden");
+      $("step1").classList.remove("hidden");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+
+    $("copyIban").addEventListener("click", async () => {
+      const iban =
+        $("iban").textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(iban);
+
+        showToast(
+          state.lang === "ar"
+            ? "تم نسخ رقم الآيبان"
+            : "IBAN copied"
+        );
+      } catch (error) {
+        showToast(iban);
+      }
+    });
+
+
+    $("shareBtn").addEventListener("click", async () => {
+      const data = {
+        title:
+          state.lang === "ar"
+            ? "مركز دار الأرقم — التبرعات"
+            : "Dar Al Arqum — Donations",
+
+        text:
+          state.lang === "ar"
+            ? "دلّي على الخير وشاركي رابط التبرع"
+            : "Share the good by sharing the donation link",
+
+        url: window.location.href
+      };
+
+      try {
+        if (navigator.share) {
+          await navigator.share(data);
+        } else {
+          await navigator.clipboard.writeText(
+            window.location.href
+          );
+
+          showToast(
+            state.lang === "ar"
+              ? "تم نسخ رابط التبرع"
+              : "Donation link copied"
+          );
+        }
+      } catch (error) {}
+    });
+
+
+    function safeFileName(name) {
+      return name.replace(
+        /[^a-zA-Z0-9._-]/g,
+        "_"
+      );
+    }
+
+
+    $("submitBtn").addEventListener("click", async () => {
+      const receiptInput = $("receipt");
+
+      if (!receiptInput.files.length) {
+        showToast(
+          state.lang === "ar"
+            ? "يرجى اختيار صورة إيصال التحويل"
+            : "Please select the transfer receipt"
+        );
+
+        return;
+      }
+
+      const submitButton = $("submitBtn");
+
+      const originalText =
+        submitButton.textContent;
+
+      submitButton.disabled = true;
+
+      submitButton.textContent =
+        state.lang === "ar"
+          ? "جارٍ الإرسال..."
+          : "Submitting...";
+
+
+      const file =
+        receiptInput.files[0];
+
+
+      const reference =
+        "DAQ-" +
+        new Date()
+          .toISOString()
+          .slice(0, 10)
+          .replaceAll("-", "") +
+        "-" +
+        Math.random()
+          .toString(36)
+          .slice(2, 7)
+          .toUpperCase();
+
+
+      const receiptPath =
+        reference +
+        "/" +
+        Date.now() +
+        "-" +
+        safeFileName(file.name);
+
+
+      try {
+
+        const {
+          error: uploadError
+        } =
+          await supabaseClient.storage
+            .from("donation-receipts")
+            .upload(
+              receiptPath,
+              file,
+              {
+                cacheControl: "3600",
+                upsert: false,
+                contentType:
+                  file.type || undefined
+              }
+            );
+
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+
+        const {
+          error: insertError
+        } =
+          await supabaseClient
+            .from("donations")
+            .insert([
+              {
+                reference_number: reference,
+
+                donor_name:
+                  $("donorName").value.trim()
+                  || null,
+
+                contact_number:
+                  $("contact").value.trim()
+                  || null,
+
+                amount:
+                  Number(
+                    state.amount.toFixed(3)
+                  ),
+
+                donation_purpose:
+                  state.purpose,
+
+                receipt_path:
+                  receiptPath,
+
+                status:
+                  "pending",
+
+                notes:
+                  $("notes").value.trim()
+                  || null
+              }
+            ]);
+
+
+        if (insertError) {
+          await supabaseClient.storage
+            .from("donation-receipts")
+            .remove([receiptPath]);
+
+          throw insertError;
+        }
+
+
+        $("referenceBox").textContent =
+          (state.lang === "ar"
+            ? "رقم المرجع: "
+            : "Reference: ")
+          + reference;
+
+
+        $("step2").classList.add("hidden");
+        $("step3").classList.remove("hidden");
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showToast(
+          state.lang === "ar"
+            ? "تعذر إرسال التبرع الآن. يرجى المحاولة مرة أخرى."
+            : "We could not submit the donation right now. Please try again."
+        );
+
+      } finally {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          originalText;
+      }
+    });
+
+
+    $("doneBtn").addEventListener("click", () => {
+      window.location.reload();
+    });
+
+
+    translatePage();
+  </script>
 
 </body>
 </html>
