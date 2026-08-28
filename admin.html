@@ -370,6 +370,29 @@
       transform: translate(-50%, 0);
     }
 
+    .lang-switch {
+      position: fixed;
+      top: 14px;
+      inset-inline-end: 14px;
+      z-index: 100;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+      color: var(--gold-dark);
+      border-radius: 999px;
+      padding: 7px 13px;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    html[dir="ltr"] body {
+      font-family: Arial, "Noto Kufi Arabic", sans-serif;
+    }
+
+    html[dir="ltr"] .reference {
+      text-align: left;
+    }
+
     @media (max-width: 560px) {
       .summary {
         grid-template-columns: repeat(3, 1fr);
@@ -387,19 +410,20 @@
 </head>
 
 <body>
+  <button id="langBtn" class="lang-switch" type="button">English</button>
   <main class="page">
 
     <section class="brand">
       <img src="logo.jpeg" class="logo" alt="Dar Al Arqum">
-      <h1>إدارة التبرعات</h1>
-      <p>مركز دار الأرقم لتعليم القرآن الكريم للنساء</p>
+      <h1 data-i18n="brandTitle">إدارة التبرعات</h1>
+      <p data-i18n="brandSubtitle">مركز دار الأرقم لتعليم القرآن الكريم للنساء</p>
     </section>
 
     <section id="loginSection" class="card login-card">
-      <h2>دخول الإدارة</h2>
-      <p>هذه الصفحة مخصصة للإدارة فقط</p>
+      <h2 data-i18n="loginTitle">دخول الإدارة</h2>
+      <p data-i18n="loginSubtitle">هذه الصفحة مخصصة للإدارة فقط</p>
 
-      <label for="email">البريد الإلكتروني</label>
+      <label for="email" data-i18n="emailLabel">البريد الإلكتروني</label>
       <input
         id="email"
         type="email"
@@ -407,7 +431,7 @@
         placeholder="Email"
       >
 
-      <label for="password">كلمة المرور</label>
+      <label for="password" data-i18n="passwordLabel">كلمة المرور</label>
       <input
         id="password"
         type="password"
@@ -415,7 +439,7 @@
         placeholder="Password"
       >
 
-      <button id="loginBtn" class="primary-btn" type="button">
+      <button id="loginBtn" class="primary-btn" type="button" data-i18n="loginBtn">
         تسجيل الدخول
       </button>
 
@@ -426,16 +450,16 @@
 
       <div class="dashboard-head">
         <div>
-          <h2>التبرعات</h2>
+          <h2 data-i18n="donationsTitle">التبرعات</h2>
           <div id="adminEmail" class="date"></div>
         </div>
 
         <div class="head-actions">
-          <button id="refreshBtn" class="refresh-btn" type="button">
+          <button id="refreshBtn" class="refresh-btn" type="button" data-i18n="refreshBtn">
             تحديث
           </button>
 
-          <button id="logoutBtn" class="logout-btn" type="button">
+          <button id="logoutBtn" class="logout-btn" type="button" data-i18n="logoutBtn">
             تسجيل الخروج
           </button>
         </div>
@@ -444,17 +468,17 @@
       <div class="summary">
         <div class="summary-box">
           <strong id="pendingCount">0</strong>
-          <span>بانتظار المراجعة</span>
+          <span data-i18n="pendingSummary">بانتظار المراجعة</span>
         </div>
 
         <div class="summary-box">
           <strong id="approvedCount">0</strong>
-          <span>معتمدة</span>
+          <span data-i18n="approvedSummary">معتمدة</span>
         </div>
 
         <div class="summary-box">
           <strong id="rejectedCount">0</strong>
-          <span>مرفوضة</span>
+          <span data-i18n="rejectedSummary">مرفوضة</span>
         </div>
       </div>
 
@@ -480,14 +504,133 @@
 
     const $ = (id) => document.getElementById(id);
 
-    const purposeLabels = {
-      general: "صدقة عامة",
-      students: "دعم طالبات القرآن",
-      events: "الفعاليات والمسابقات",
-      expenses: "دعم مصاريف المركز",
-      other: "أخرى",
-      expansion: "استكمال توسعة مركز دار الأرقم"
+    let currentLang = localStorage.getItem("adminLang") || "ar";
+
+    const i18n = {
+      ar: {
+        pageTitle: "إدارة التبرعات | مركز دار الأرقم",
+        brandTitle: "إدارة التبرعات",
+        brandSubtitle: "مركز دار الأرقم لتعليم القرآن الكريم للنساء",
+        loginTitle: "دخول الإدارة",
+        loginSubtitle: "هذه الصفحة مخصصة للإدارة فقط",
+        emailLabel: "البريد الإلكتروني",
+        passwordLabel: "كلمة المرور",
+        loginBtn: "تسجيل الدخول",
+        donationsTitle: "التبرعات",
+        refreshBtn: "تحديث",
+        logoutBtn: "تسجيل الخروج",
+        pendingSummary: "بانتظار المراجعة",
+        approvedSummary: "معتمدة",
+        rejectedSummary: "مرفوضة",
+        loading: "جارٍ تحميل التبرعات...",
+        empty: "لا توجد تبرعات حتى الآن.",
+        loadError: "تعذر تحميل التبرعات.",
+        loginLoading: "جارٍ الدخول...",
+        loginError: "تعذر تسجيل الدخول. تأكد من البريد الإلكتروني وكلمة المرور.",
+        amount: "المبلغ",
+        purpose: "مجال التبرع",
+        name: "الاسم",
+        contact: "رقم التواصل",
+        notes: "ملاحظات",
+        receipt: "عرض إيصال التحويل",
+        approve: "اعتماد",
+        reject: "رفض",
+        noReceipt: "لا يوجد إيصال مرفق.",
+        receiptError: "تعذر فتح الإيصال.",
+        updateError: "تعذر تحديث حالة التبرع.",
+        approvedToast: "تم اعتماد التبرع.",
+        rejectedToast: "تم رفض التبرع.",
+        confirmApprove: "هل تريد تأكيد اعتماد هذا التبرع؟",
+        confirmReject: "هل تريد تأكيد رفض هذا التبرع؟",
+        pendingStatus: "بانتظار المراجعة",
+        approvedStatus: "معتمد",
+        rejectedStatus: "مرفوض",
+        langBtn: "English",
+        purposes: {
+          general: "صدقة عامة",
+          students: "دعم طالبات القرآن",
+          events: "الفعاليات والمسابقات",
+          expenses: "دعم مصاريف المركز",
+          other: "أخرى",
+          expansion: "استكمال توسعة مركز دار الأرقم"
+        }
+      },
+      en: {
+        pageTitle: "Donation Management | Dar Al Arqum",
+        brandTitle: "Donation Management",
+        brandSubtitle: "Dar Al Arqum Quranic Studies Centre for Women",
+        loginTitle: "Admin Login",
+        loginSubtitle: "This page is for authorized administration only",
+        emailLabel: "Email",
+        passwordLabel: "Password",
+        loginBtn: "Sign In",
+        donationsTitle: "Donations",
+        refreshBtn: "Refresh",
+        logoutBtn: "Sign Out",
+        pendingSummary: "Pending Review",
+        approvedSummary: "Approved",
+        rejectedSummary: "Rejected",
+        loading: "Loading donations...",
+        empty: "No donations yet.",
+        loadError: "Unable to load donations.",
+        loginLoading: "Signing in...",
+        loginError: "Unable to sign in. Check your email and password.",
+        amount: "Amount",
+        purpose: "Donation Purpose",
+        name: "Name",
+        contact: "Contact Number",
+        notes: "Notes",
+        receipt: "View Transfer Receipt",
+        approve: "Approve",
+        reject: "Reject",
+        noReceipt: "No receipt attached.",
+        receiptError: "Unable to open the receipt.",
+        updateError: "Unable to update donation status.",
+        approvedToast: "Donation approved.",
+        rejectedToast: "Donation rejected.",
+        confirmApprove: "Confirm approval of this donation?",
+        confirmReject: "Confirm rejection of this donation?",
+        pendingStatus: "Pending Review",
+        approvedStatus: "Approved",
+        rejectedStatus: "Rejected",
+        langBtn: "العربية",
+        purposes: {
+          general: "General Charity",
+          students: "Support Quran Students",
+          events: "Events and Competitions",
+          expenses: "Support Centre Expenses",
+          other: "Other",
+          expansion: "Dar Al Arqum Centre Expansion"
+        }
+      }
     };
+
+    function t(key) {
+      return i18n[currentLang][key] ?? key;
+    }
+
+    function applyLanguage() {
+      const isArabic = currentLang === "ar";
+      document.documentElement.lang = currentLang;
+      document.documentElement.dir = isArabic ? "rtl" : "ltr";
+      document.title = t("pageTitle");
+      $("langBtn").textContent = t("langBtn");
+
+      document.querySelectorAll("[data-i18n]").forEach((el) => {
+        const key = el.dataset.i18n;
+        el.textContent = t(key);
+      });
+
+      if (!$("dashboardSection").classList.contains("hidden")) {
+        loadDonations();
+      }
+    }
+
+    $("langBtn").addEventListener("click", () => {
+      currentLang = currentLang === "ar" ? "en" : "ar";
+      localStorage.setItem("adminLang", currentLang);
+      applyLanguage();
+    });
 
     function showToast(message) {
       const toast = $("toast");
@@ -501,10 +644,10 @@
       }, 2200);
     }
 
-    function statusArabic(status) {
-      if (status === "approved") return "معتمد";
-      if (status === "rejected") return "مرفوض";
-      return "بانتظار المراجعة";
+    function statusLabel(status) {
+      if (status === "approved") return t("approvedStatus");
+      if (status === "rejected") return t("rejectedStatus");
+      return t("pendingStatus");
     }
 
     function safeText(value) {
@@ -518,10 +661,10 @@
     function formatDate(value) {
       if (!value) return "—";
 
-      return new Date(value).toLocaleString("ar-BH", {
-        dateStyle: "medium",
-        timeStyle: "short"
-      });
+      return new Date(value).toLocaleString(
+        currentLang === "ar" ? "ar-BH" : "en-GB",
+        { dateStyle: "medium", timeStyle: "short" }
+      );
     }
 
     async function showDashboard(user) {
@@ -543,7 +686,7 @@
 
       $("loginError").classList.add("hidden");
       $("loginBtn").disabled = true;
-      $("loginBtn").textContent = "جارٍ الدخول...";
+      $("loginBtn").textContent = t("loginLoading");
 
       const { data, error } =
         await supabaseClient.auth.signInWithPassword({
@@ -552,11 +695,10 @@
         });
 
       $("loginBtn").disabled = false;
-      $("loginBtn").textContent = "تسجيل الدخول";
+      $("loginBtn").textContent = t("loginBtn");
 
       if (error) {
-        $("loginError").textContent =
-          "تعذر تسجيل الدخول. تأكد من البريد الإلكتروني وكلمة المرور.";
+        $("loginError").textContent = t("loginError");
         $("loginError").classList.remove("hidden");
         return;
       }
@@ -579,7 +721,7 @@
 
     async function loadDonations() {
       $("donationsList").innerHTML =
-        '<div class="loading">جارٍ تحميل التبرعات...</div>';
+        `<div class="loading">${t("loading")}</div>`;
 
       const { data, error } =
         await supabaseClient
@@ -589,7 +731,7 @@
 
       if (error) {
         $("donationsList").innerHTML =
-          '<div class="error">تعذر تحميل التبرعات.</div>';
+          `<div class="error">${t("loadError")}</div>`;
         console.error(error);
         return;
       }
@@ -616,7 +758,7 @@
 
       if (!donations.length) {
         $("donationsList").innerHTML =
-          '<div class="empty">لا توجد تبرعات حتى الآن.</div>';
+          `<div class="empty">${t("empty")}</div>`;
         return;
       }
 
@@ -624,7 +766,7 @@
         .map((donation) => {
 
           const purpose =
-            purposeLabels[donation.donation_purpose]
+            i18n[currentLang].purposes[donation.donation_purpose]
             || donation.donation_purpose
             || "—";
 
@@ -646,36 +788,36 @@
                 </div>
 
                 <span class="status ${status}">
-                  ${statusArabic(status)}
+                  ${statusLabel(status)}
                 </span>
               </div>
 
               <div class="details">
 
                 <div class="detail">
-                  <span>المبلغ</span>
+                  <span>${t("amount")}</span>
                   <strong class="amount">
                     ${Number(donation.amount || 0).toFixed(3)} BHD
                   </strong>
                 </div>
 
                 <div class="detail">
-                  <span>مجال التبرع</span>
+                  <span>${t("purpose")}</span>
                   <strong>${safeText(purpose)}</strong>
                 </div>
 
                 <div class="detail">
-                  <span>الاسم</span>
+                  <span>${t("name")}</span>
                   <strong>${safeText(donation.donor_name)}</strong>
                 </div>
 
                 <div class="detail">
-                  <span>رقم التواصل</span>
+                  <span>${t("contact")}</span>
                   <strong>${safeText(donation.contact_number)}</strong>
                 </div>
 
                 <div class="detail" style="grid-column:1/-1;">
-                  <span>ملاحظات</span>
+                  <span>${t("notes")}</span>
                   <strong>${safeText(donation.notes)}</strong>
                 </div>
 
@@ -686,7 +828,7 @@
                 type="button"
                 onclick="openReceipt('${donation.receipt_path || ""}')"
               >
-                عرض إيصال التحويل
+                ${t("receipt")}
               </button>
 
               <div class="decision-actions">
@@ -696,7 +838,7 @@
                   type="button"
                   onclick="updateStatus(${donation.id}, 'approved')"
                 >
-                  اعتماد
+                  ${t("approve")}
                 </button>
 
                 <button
@@ -704,7 +846,7 @@
                   type="button"
                   onclick="updateStatus(${donation.id}, 'rejected')"
                 >
-                  رفض
+                  ${t("reject")}
                 </button>
 
               </div>
@@ -717,7 +859,7 @@
 
     async function openReceipt(path) {
       if (!path) {
-        showToast("لا يوجد إيصال مرفق.");
+        showToast(t("noReceipt"));
         return;
       }
 
@@ -728,7 +870,7 @@
 
       if (error || !data?.signedUrl) {
         console.error(error);
-        showToast("تعذر فتح الإيصال.");
+        showToast(t("receiptError"));
         return;
       }
 
@@ -736,11 +878,8 @@
     }
 
     async function updateStatus(id, status) {
-      const arabicStatus =
-        status === "approved" ? "اعتماد" : "رفض";
-
       const confirmed = confirm(
-        `هل تريد تأكيد ${arabicStatus} هذا التبرع؟`
+        status === "approved" ? t("confirmApprove") : t("confirmReject")
       );
 
       if (!confirmed) return;
@@ -753,14 +892,12 @@
 
       if (error) {
         console.error(error);
-        showToast("تعذر تحديث حالة التبرع.");
+        showToast(t("updateError"));
         return;
       }
 
       showToast(
-        status === "approved"
-          ? "تم اعتماد التبرع."
-          : "تم رفض التبرع."
+        status === "approved" ? t("approvedToast") : t("rejectedToast")
       );
 
       await loadDonations();
@@ -781,6 +918,7 @@
       }
     }
 
+    applyLanguage();
     initialise();
   </script>
 </body>
